@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="To track the location">
+    <meta name="author" content="DLP">
+
+    <title>iTracker</title>
+	
+    <link href="support/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
+	
+	<script src="support/jquery/jquery1.8.3.min.js"></script>
+	<script src="support/bootstrap3/js/bootstrap.min.js"></script>
+	<script src="support/ejs/ejs_production.js"></script>
+</head>
+
+<body>
+	<script>
+		$(document).ready(function()
+		{
+			var form = new EJS({url:"view/loginfrm.ejs"}).render();
+			var dlg = new EJS({url:"view/dialog.ejs"}).render(
+			{
+				uuid:"dlglogin",
+				title:"Login",
+				alert:null,
+				content:form,
+				buttons:
+				[
+					{uuid:"btnlogin",type:"btn-primary",title:"SignIn"}
+				]
+			});
+			
+			$("body").append(dlg);
+			$(dlg).modal("show");
+		});
+	</script>
+</body>
+</html>
