@@ -15,27 +15,27 @@
 	<script src="support/jquery/jquery1.8.3.min.js"></script>
 	<script src="support/bootstrap3/js/bootstrap.min.js"></script>
 	<script src="support/ejs/ejs_production.js"></script>
+	
+	<!-- helper -->
+	<script src="public/js/helper/jquery/jqplus.js"></script>	
+	
+	<!-- lac modal -->
+	<script src="public/js/lac/lac.base.js"></script>	
+	<script src="public/js/lac/app/lac.mainapp.js"></script>
+	<script src="public/js/lac/app/lac.itrmainapp.js"></script>
+	<script src="public/js/lac/connector/lac.ajaxconn.js"></script>
+	<script src="public/js/lac/connector/lac.storageconn.js"></script>
+	<script src="public/js/lac/layout/lac.mainlayout.js"></script>
+	<script src="public/js/lac/layout/lac.itrmainlayout.js"></script>
+	
 </head>
 
 <body>
 	<script>
 		$(document).ready(function()
 		{
-			var form = new EJS({url:"view/loginfrm.ejs"}).render();
-			var dlg = new EJS({url:"view/dialog.ejs"}).render(
-			{
-				uuid:"dlglogin",
-				title:"Login",
-				alert:null,
-				content:form,
-				buttons:
-				[
-					{uuid:"btnlogin",type:"btn-primary",title:"SignIn"}
-				]
-			});
-			
-			$("body").append(dlg);
-			$(dlg).modal("show");
+			window.console.log("iTracker app start ... ");
+			var app = new $.LAC.APP.ItrMainApp();
 		});
 	</script>
 </body>

@@ -15,8 +15,10 @@
 	foreach($tablist as $table)
 	{
 		$name = $table->get("name");
-		$mysqlop->pushstatement((new MysqlStat("Destroy".$name,null,function(){echo $name." table destroy ... <br>";return true;}))->destroytable($table,null))
-				->pushstatement((new MysqlStat("Create".$name,null,function(){echo $name." table create ... <br>";return true;}))->createtable($table,null));
+		$destroy = new MysqlStat("Destroy".$name,null,null);
+		$create = new MysqlStat("Create".$name,null,null);
+		$mysqlop->pushstatement($destroy->destroytable($table,null))
+				->pushstatement($create->createtable($table,null));
 	}
 
 	// start mysql op

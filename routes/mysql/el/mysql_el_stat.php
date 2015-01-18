@@ -39,7 +39,7 @@
 					else
 						$ss = "CHANGE '".$fieldname."' '".$field->get("rename")."'".$fieldmysqlstr;
 
-					$s .= ((count($s) == 0) ? $ss : (",".$ss));
+					$s .= ((strlen($s) == 0) ? $ss : (",".$ss));
 				}
 	
 				return "ALTER TABLE ".$table->get("name")." ".$s;
@@ -54,13 +54,13 @@
 			if($tables instanceof MysqlTable)
 			{
 				$s = "";
-				foreach($table->get("fields") as $field)
+				foreach($tables->get("fields") as $field)
 				{
 					$ss = $field->get("name")." ".$field->get("datatype")->getmysqlstr();
-					$s .= ((count($s) == 0) ? $ss : (",".$ss));
+					$s .= ((strlen($s) == 0) ? $ss : (",".$ss));
 				}
 				
-				$this->stat .= $tables->get("name").((count($s) > 0) ? ("(".$s.")") : "");
+				$this->stat .= $tables->get("name").((strlen($s) > 0) ? ("(".$s.")") : "");
 			}
 			else if(is_string($tables))
 				$this->stat .= $tables;
@@ -79,7 +79,7 @@
 					if($table instanceof MysqlTable)
 					{
 						$ss = $table->get("name")." TO ".$table->get("rename");
-						$s .= ((count($s) == 0) ? $ss : (",".$ss));
+						$s .= ((strlen($s) == 0) ? $ss : (",".$ss));
 					}	
 				}		
 			}
@@ -99,9 +99,9 @@
 				foreach($tables as $table)
 				{
 					if($table instanceof MysqlTable)
-						$s .= ((count($s) == 0) ? $table->get("name") : (",".$table->get("name")));	
+						$s .= ((strlen($s) == 0) ? $table->get("name") : (",".$table->get("name")));	
 					else if(is_string($table))
-						$s .= ((count($s) == 0) ? $table : (",".$table));	
+						$s .= ((strlen($s) == 0) ? $table : (",".$table));	
 				}	
 			}
 			else if($tables instanceof MysqlTable)
@@ -145,9 +145,9 @@
 				foreach($tables->get("fields") as $field)
 				{
 					if($field->get("value"))
-						$sf .= ((($sf!="") ? "," : "") . $fields->get("datatype")->getmysqlstr());
+						$sf .= ((($sf!="") ? "," : "") . $field->get("name"));
 					if($field->get("value"))
-						$sv .= ((($sv!="") ? "," : "") + $field->get("value"));				
+						$sv .= ((($sv!="") ? "," : "") . $field->get("value"));				
 				}
 
 				$this->stat = "INSERT INTO ".$tables->get("name")." (".$sf.") VALUES (".$sv.")";
@@ -193,8 +193,8 @@
 					{	
 						foreach($table->get("fields") as $field)
 						{	
-							if($field->get("isretrivable"))
-								$col .= ((($col!="") ? "," : "").($table->get("name").".".$field->get("name"));	
+							if($field->get("isretrivable") === true)
+								$col .= ((($col!="") ? "," : "").($table->get("name").".".$field->get("name")." AS ".$tables->get("name")."_".$f->get("name")));	
 							
 							$joinsetting = $field->get("join");
 							if($joinsetting["table"] !== false)
@@ -210,9 +210,9 @@
 			else if($tables instanceof MysqlTable)
 			{
 				$sv = "";
-				for($tables->get("fields") as $f)
-					if($f->get("isretrivable"))
-						$sv .= ((($sv!="") ? "," : "").($tables->get("name").".".$f->get("name"));	
+				foreach($tables->get("fields") as $f)
+					if($f->get("isretrivable") === true)
+						$sv .= ((($sv!="") ? "," : "").($tables->get("name").".".$f->get("name")." AS ".$tables->get("name")."_".$f->get("name")));	
 					
 				$this->stat = "SELECT ".$sv." FROM ".$tables->get("name");
 			}

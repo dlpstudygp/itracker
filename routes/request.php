@@ -6,8 +6,8 @@
 	//
 	//	
 	
-	include_once dirname(__FILE__).'/../service/app.php';
-	include_once dirname(__FILE__).'/../service/reg.php';
+	include_once dirname(__FILE__).'/service/app.php';
+	include_once dirname(__FILE__).'/service/reg.php';
 	
 	// echo normal result
 	function gl_echo($nRet,$msg,$data)
@@ -29,11 +29,16 @@
 		
 		if(!isset($oplist[$op]))
 			gl_die("Unknowing operation command!!");
+
+		if(get_magic_quotes_gpc())
+			$d = stripslashes($sParam);
+		else
+			$d = $sParam;
 		
-		$data = (array)(json_decode($sParam));
+		$data = (array)(json_decode($d,true));
 		$args = explode(",",$oplist[$op]["requestdata"]);
 						
-		for($i=1;$i<count($args);$i++)
+		for($i=0;$i<count($args);$i++)
 			if(!isset($data[$args[$i]]))
 				gl_die($args[$i]." is not set");
 		
@@ -45,6 +50,6 @@
 	$ret = gl_datavalidation($_POST["op"],$_POST["params"]);
 	
 	//start service 
-	$service = new AppService($ret["data"],"gl_die","gl_echo");
-	call_user_func_array(array($service,$ret["response"])); 
+	$service = new AppServ($ret["data"],"gl_die","gl_echo");
+	call_user_func_array(array($service,$ret["response"]),null); 
 ?>

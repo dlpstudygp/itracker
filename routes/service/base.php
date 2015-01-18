@@ -10,7 +10,6 @@
 		protected $data = null;
 		protected $callback = null;
 		protected $errhandler = null;
-		protected $msg = "";
 		
 		public function __construct($data,$errhandler,$callback)
 		{

@@ -22,7 +22,7 @@
 			"username" => "",
 			"password" => "",
 			"name" => ""
-		)
+		);
 		
 		function __construct($hostaddr,$username,$pw,$name)
 		{
@@ -79,7 +79,7 @@
 		
 		protected function closeconn()
 		{
-			$this->msg = "Connection close";
+			$this->msg .= " Connection close";
 			if($this->conn <> null)
 				mysqli_close($this->conn);
 		}

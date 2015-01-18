@@ -19,14 +19,14 @@
 			"friendrequest" => array("requestdata" => "accountuuid,frienduuid", "option" => "", "response" => "friendrequest"),
 			"replyfriendreqest" => array("requestdata" => "accountuuid,frienduuid,status", "option" => "", "response" => "replyfriendreqest"),
 			"unfriend" => array("requestdata" => "accountuuid,frienduuid", "option" => "", "response" => "unfriend"),
-			"createevent" => array("requestdata" => "name,creatoruuid,type,date", "option" => "desc", "response" => "createevent"),
-			"updateevent" => array("requestdata" => "eventuuid", "option" => "desc,name", "response" => "updateevent"),
+			"createevent" => array("requestdata" => "name,creatoruuid,type,date", "option" => "description", "response" => "createevent"),
+			"updateevent" => array("requestdata" => "eventuuid", "option" => "description,name", "response" => "updateevent"),
 			"removeevent" => array("requestdata" => "eventuuid", "option" => "", "response" => "removeevent"),
 			"browseevent" => array("requestdata" => "accountuuid", "option" => "", "response" => "browseevent"),
 			"browseeventdetail" => array("requestdata" => "eventuuid", "option" => "", "response" => "browseeventdetail"),				
 			"invitefriendevent" => array("requestdata" => "eventuuid,partyuuid", "option" => "", "response" => "invitefriendevent"),
-			"createeventdetail" => array("requestdata" => "eventuuid,lat,lng,time", "option" => "desc", "response" => "createeventdetail"),
-			"updateeventdetail" => array("requestdata" => "eventdetailuuid", "option" => "lat,lng,time,desc", "response" => "updateeventdetail"),
+			"createeventdetail" => array("requestdata" => "eventuuid,lat,lng,time", "option" => "description", "response" => "createeventdetail"),
+			"updateeventdetail" => array("requestdata" => "eventdetailuuid", "option" => "lat,lng,time,description", "response" => "updateeventdetail"),
 			"removeeventdetail" => array("requestdata" => "eventdetailuuid", "option" => "", "response" => "removeeventdetail")
 		);
 	}	

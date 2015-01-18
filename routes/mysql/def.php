@@ -7,21 +7,21 @@
 	
 	include_once dirname(__FILE__).'/op/mysql_op_base.php';
 	
-	define(MYSQL_DEF_HOSTADDR,"");
-	define(MYSQL_DEF_USERNAME,"");
-	define(MYSQL_DEF_PASSWORD,"");
-	define(MYSQL_DEF_DBNAME,"");
+	define(MYSQL_DEF_HOSTADDR,"mysql1.000webhost.com");
+	define(MYSQL_DEF_USERNAME,"a8558739_itr");
+	define(MYSQL_DEF_PASSWORD,"A123456z");
+	define(MYSQL_DEF_DBNAME,"a8558739_itr");
 	
 	function gl_getacctab()
 	{
 		return new MysqlTable("account",array
 		(
-			new MysqlField("uuid",(new MysqlDt())->uuid(false)),
-			new MysqlField("name",(new MysqlDt())->text(32,null,true,null)),
-			new MysqlField("password",(new MysqlDt())->password(null)),
-			new MysqlField("imgpath",(new MysqlDt())->text(64,null,false,null)),
-			new MysqlField("email",(new MysqlDt())->text(32,null,true,null)),
-			new MysqlField("info",(new MysqlDt())->json(null,false,null))		
+			new MysqlField("uuid",MysqlDt::dtfactory("uuid",array(false))),
+			new MysqlField("name",MysqlDt::dtfactory("text",array(32,null,true,null))),
+			new MysqlField("password",MysqlDt::dtfactory("password",array(null))),
+			new MysqlField("imgpath",MysqlDt::dtfactory("text",array(64,null,false,null))),
+			new MysqlField("email",MysqlDt::dtfactory("text",array(32,null,true,null))),
+			new MysqlField("info",MysqlDt::dtfactory("json",array(null,false,null)))		
 		));
 	};
 	
@@ -29,9 +29,9 @@
 	{
 		return new MysqlTable("friends",array
 		(
-			new MysqlField("accountuuid",(new MysqlDt())->text(32,null,true,null)),
-			new MysqlField("frienduuid",(new MysqlDt())->text(32,null,true,null)),
-			new MysqlField("status",(new MysqlDt())->enum(array("INVITED","ACCEPTED","DENY"),"INVITED",true,null))		
+			new MysqlField("accountuuid",MysqlDt::dtfactory("text",array(32,null,true,null))),
+			new MysqlField("frienduuid",MysqlDt::dtfactory("text",array(32,null,true,null))),
+			new MysqlField("status",MysqlDt::dtfactory("enum",array(array("INVITED","ACCEPTED","DENY"),"INVITED",true,null)))		
 		));		
 	};
 	
@@ -39,12 +39,12 @@
 	{
 		return new MysqlTable("events",array
 		(
-			new MysqlField("uuid",(new MysqlDt())->uuid(false)),
-			new MysqlField("name",(new MysqlDt())->text(32,null,true,null)),
-			new MysqlField("desc",(new MysqlDt())->text(null,null,false,null)),
-			new MysqlField("creatoruuid",(new MysqlDt())->text(32,null,true,null)),
-			new MysqlField("date",(new MysqlDt())->datetime(true)),
-			new MysqlField("type",(new MysqlDt())->enum(array("PUBLIC","PRIVATE"),"PUBLIC",true,null))		
+			new MysqlField("uuid",MysqlDt::dtfactory("uuid",array(false))),
+			new MysqlField("name",MysqlDt::dtfactory("text",array(32,null,true,null))),
+			new MysqlField("description",MysqlDt::dtfactory("text",array(null,null,false,null))),
+			new MysqlField("creatoruuid",MysqlDt::dtfactory("text",array(32,null,true,null))),
+			new MysqlField("date",MysqlDt::dtfactory("datetime",array(true))),
+			new MysqlField("type",MysqlDt::dtfactory("enum",array(array("PUBLIC","PRIVATE"),"PUBLIC",true,null)))		
 		));
 	};
 	
@@ -52,12 +52,12 @@
 	{
 		return new MysqlTable("eventdetail",array
 		(
-			new MysqlField("uuid",(new MysqlDt())->uuid(false)),
-			new MysqlField("eventuuid",(new MysqlDt())->text(32,null,true,null)),
-			new MysqlField("lat",(new MysqlDt())->decimalnum(2,true,4,6,false,0,true,null)),
-			new MysqlField("lng",(new MysqlDt())->decimalnum(2,true,4,6,false,0,true,null)),
-			new MysqlField("desc",(new MysqlDt())->text(null,null,false,null)),
-			new MysqlField("time",(new MysqlDt())->datetime(false))		
+			new MysqlField("uuid",MysqlDt::dtfactory("uuid",array(false))),
+			new MysqlField("eventuuid",MysqlDt::dtfactory("text",array(32,null,true,null))),
+			new MysqlField("lat",MysqlDt::dtfactory("decimalnum",array(2,true,12,6,false,0,true,null))),
+			new MysqlField("lng",MysqlDt::dtfactory("decimalnum",array(2,true,12,6,false,0,true,null))),
+			new MysqlField("description",MysqlDt::dtfactory("text",array(null,null,false,null))),
+			new MysqlField("time",MysqlDt::dtfactory("datetime",array(false)))		
 		));		
 	};
 	
@@ -65,8 +65,8 @@
 	{
 		return new MysqlTable("eventparty",array
 		(
-			new MysqlField("eventuuid",(new MysqlDt())->text(32,null,true,null)),
-			new MysqlField("partyuuid",(new MysqlDt())->text(32,null,true,null))
+			new MysqlField("eventuuid",MysqlDt::dtfactory("text",array(32,null,true,null))),
+			new MysqlField("partyuuid",MysqlDt::dtfactory("text",array(32,null,true,null)))
 		));			
 	};
 ?>

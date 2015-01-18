@@ -11,15 +11,16 @@
 		protected $setting = array
 		(
 			"name" => "FieldName",
-			"datatype" => (new MysqlDt()).text(null,null,false,null),
+			"datatype" => null,
 			"value" => null,
-			"isretrivable" => true,
+			"isretrivable" => false,
 			"rename" => false,
 			"join" => array("table" => false, "field" => false, "type" => "INNER JOIN")
 		);
 		
 		public function __construct($name,$datatype)
 		{
+			$this->setting["datatype"] = new MysqlDt();
 			return $this->set("name",$name)
 						->set("datatype",$datatype);
 		}
@@ -35,13 +36,13 @@
 					$this->setting[$key] = ($val instanceof MysqlDt) ? $val : $this->setting[$key];
 					break;
 				case "value":
-					$this->setting[$key] = ($val != null) ? $this->convertvaltomysqlstr($val,$this->setting["datatype"]) : null;
+					$this->setting[$key] = ($val !== null) ? $this->convertvaltomysqlstr($val,$this->setting["datatype"]) : null;
 					break;
 				case "isretrivable":
-					$this->setting[$key] = ($val != null) ? (($val !== false) ? true : false) : $this->setting[$key];
+					$this->setting[$key] = ($val !== null) ? $val : $this->setting[$key];
 					break;
 				case "rename":
-					$this->setting[$key] = ($val != null) ? $val : $this->setting[$key];
+					$this->setting[$key] = ($val !== null) ? $val : $this->setting[$key];
 					break;
 			}
 						
