@@ -10,14 +10,14 @@
 	include_once dirname(__FILE__).'/service/reg.php';
 	
 	// echo normal result
-	$echo = function gl_echo($nRet,$msg,$data)
+	function gl_echo($nRet,$msg,$data)
 	{
 		$result = (!is_null($data)) ? array("issuccess"=>$nRet,"msg"=>$msg,"data" => $data) : array("issuccess"=>$nRet,"msg"=>$msg);		
 		echo json_encode($result);
 	};
 	
 	// die the connection
-	$die = function gl_die($msg)
+	function gl_die($msg)
 	{die("ERR:".$msg);}
 	
 	// data validation
@@ -50,6 +50,6 @@
 	$ret = gl_datavalidation($_POST["op"],$_POST["params"]);
 	
 	//start service 
-	$service = new AppServ($ret["data"],$die,$echo);
+	$service = new AppServ($ret["data"],"gl_die","gl_echo");
 	call_user_func_array(array($service,$ret["response"]),array());
 ?>

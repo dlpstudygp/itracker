@@ -29,19 +29,34 @@ window.console.log("Create the LAC itrmainlayout ... ");
 		{
 			// setup the navbar here ... 
 			window.console.log("LAC.LAYOUT.ItrMainLayout createnavbar(parent:"+parent+") ... ");
-
-			collection["loginnavbar"] = $(new EJS({url:"view/navbar.ejs"}).render(
-			{
-				brand:"iTracker"
-			}));
-			parent.append(collection["loginnavbar"]);
 			
+			var menu = new EJS({url:"view/menu.ejs"}).render(
+			{
+				uuid: 'menuaside',
+				items : 
+				[
+					{uuid : 'myprofile', title: 'MyProfile'},
+					{uuid : 'publicevt', title: 'PublicEvents'},
+					{uuid : 'myevt', title: 'MyEvents'},
+				]
+			});
+
+			collection["main"] = $(new EJS({url:"view/navbar.ejs"}).render(
+			{
+				menuuuid: 'menuaside',
+				menu: menu
+			}));
+			
+			parent.append(collection["main"]);
 			return this;
 		},
 		createmainview : function(collection,parent)
 		{
 			// setup the mainview here ... 
 			window.console.log("LAC.LAYOUT.ItrMainLayout createmainview(parent:"+parent+") ... ");
+			
+			var car = new EJS({url:"view/carousel.ejs"}).render();
+			parent.append(car);
 			
 			return this;
 		},
@@ -57,7 +72,7 @@ window.console.log("Create the LAC itrmainlayout ... ");
 			// setup the dialog here ... 
 			window.console.log("LAC.LAYOUT.ItrMainLayout createdialog(parent:"+parent+") ... ");
 
-			var form = new EJS({url:"view/loginfrm.ejs"}).render();
+			/*var form = new EJS({url:"view/loginfrm.ejs"}).render();
 			collection["logindlg"] = $(new EJS({url:"view/dialog.ejs"}).render(
 			{
 				uuid:"dlglogin",
@@ -83,7 +98,7 @@ window.console.log("Create the LAC itrmainlayout ... ");
 					{uuid:"btncreateacc",type:"btn-primary",title:"SignUp"}
 				]
 			}));
-			parent.append(collection["createaccdlg"]);
+			parent.append(collection["createaccdlg"]);*/
 
 			return this;
 		},
@@ -94,7 +109,7 @@ window.console.log("Create the LAC itrmainlayout ... ");
 			
 			var self = this;
 			
-			var logindlg = this.components.dialog["logindlg"];
+			/*var logindlg = this.components.dialog["logindlg"];
 			logindlg.on("click touch","button",
 			function(evt)
 			{
@@ -120,7 +135,7 @@ window.console.log("Create the LAC itrmainlayout ... ");
 					var cf = createaccdlg.find("#inputconfirmation").val().trim();
 					self.app.createaccount(email,name,pw,cf);					
 				}	
-			});
+			});*/
 			
 			return this;
 		},		

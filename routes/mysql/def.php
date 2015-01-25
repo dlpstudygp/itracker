@@ -8,7 +8,7 @@
 	include_once dirname(__FILE__).'/op/mysql_op_base.php';
 	
 	define(MYSQL_DEF_HOSTADDR,"localhost");
-	define(MYSQL_DEF_USERNAME,"root");
+	define(MYSQL_DEF_USERNAME,"dlpstudygp");
 	define(MYSQL_DEF_PASSWORD,"A123456z");
 	define(MYSQL_DEF_DBNAME,"itracker_db");
 	
