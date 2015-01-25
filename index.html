@@ -4,26 +4,34 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0>
     <meta name="description" content="To track the location">
     <meta name="author" content="DLP">
 
     <title>iTracker</title>
 	
-    <link href="support/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
-	
-    <link href="public/style/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="support/bootstrap3/css/bootstrap.min.css" rel="stylesheet">	
+	<link href="support/jquery-ui/css/jquery-ui.min.css" rel="stylesheet">	
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
-
-    <!-- Add custom CSS here -->
-    <link href="public/style/bootstrap-agency/css/landing-page.css" rel="stylesheet">	
 	
 	<script src="support/jquery/jquery1.8.3.min.js"></script>
+	<script src="support/jquery-ui/jquery-ui.min.js"></script>
 	<script src="support/bootstrap3/js/bootstrap.min.js"></script>
 	<script src="support/ejs/ejs_production.js"></script>
 	
+	<!-- style slidebar -->
+	<link href="public/style/sidebar/css/sidebar.css" rel="stylesheet">
+	
+	<!-- style agency -->
+	<link href="public/style/agency/css/bootstrap.css" rel="stylesheet">
+	
 	<!-- helper -->
 	<script src="public/js/helper/jquery/jqplus.js"></script>	
+	<script src="public/js/helper/jquery/jqpage.js"></script>
+	
+	<!-- bootstrap table -->	
+	<link href="support/bootstrap-table/src/bootstrap-table.css" rel="stylesheet">
+	<script src="support/bootstrap-table/src/bootstrap-table.js"></script>
 	
 	<!-- lac modal -->
 	<script src="public/js/lac/lac.base.js"></script>	
@@ -42,7 +50,40 @@
 		{
 			window.console.log("iTracker app start ... ");
 			var app = new $.LAC.APP.ItrMainApp();
+			
+    
+			$('#public_event_table').bootstrapTable('destroy')
+                .bootstrapTable({
+                    //classes: classes,
+                    striped: true
+            	})
+            	.on('click-row.bs.table', function (e, row, $element) {
+                	for (var i in row) {
+                		//alert(i + ', ' + row[i])
+                		$("#"+i).text(row[i]);
+                	}
+            	})
+            	;
+		
 		});
 	</script>
+	<h1><div class="title">Public Event</div></h1>
+	<table id="public_event_table" data-toggle="table" data-url="public_event_table.json" data-cache="false" data-height="299"
+			data-sort-name="event_datetime" data-sort-order="desc"
+			data-search="true" data-show-refresh="true" data-show-toggle="false" data-show-columns="false" data-select-item-name="toolbar1">
+    	<thead>
+        <tr>
+	        <th class="col-md-1" data-visible="false" data-field="id">Event Id</th>
+            <th class="col-md-1" data-field="event_datetime" data-sortable="true">Event Date / Time</th>
+            <th class="col-md-2" data-field="organizer" data-sortable="true">Organizer</th>
+            <th class="col-md-6" data-field="title">Title</th>
+        </tr>
+    	</thead>
+	</table>
+	
+	<h4><div class="col-md-2">Event Id</div><div id="id">&nbsp;</div></h4>	
+  	<h4><div class="col-md-2">Event DateTime</div><div id="event_datetime">&nbsp;</div></h4>
+  	<h4><div class="col-md-2">Organizer</div><div id="organizer">&nbsp;</div></h4>
+  	<h4><div class="col-md-2">Title</div><div id="title">&nbsp;</div></h4>
 </body>
 </html>

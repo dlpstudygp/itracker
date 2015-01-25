@@ -18,7 +18,7 @@ window.console.log("Create the LAC mainlayout ... ");
 		// constructor ... 
 		window.console.log("LAC.LAYOUT.MainLayout __constuct(uuid:"+uuid+") ... ");
 		
-		L.LAYOUT.Abstract.call(this,uuid); 
+		L.LAYOUT.Abstract.call(this,uuid);
 		return this;
 	};
 	
