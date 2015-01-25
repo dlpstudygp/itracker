@@ -79,7 +79,7 @@
 				$retdata["account_".$key] = $val;
 				
 			$table->setfieldval($this->data);
-			$stat = new MysqlStat("CreateAccount_InsertValue",retdata,null);
+			$stat = new MysqlStat("CreateAccount_InsertValue",$retdata,null);
 			$this->mysqlop->pushstatement($stat->insertrecord($table,null));
 			
 			$this->executecmd();

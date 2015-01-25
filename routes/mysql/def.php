@@ -7,10 +7,10 @@
 	
 	include_once dirname(__FILE__).'/op/mysql_op_base.php';
 	
-	define(MYSQL_DEF_HOSTADDR,"mysql1.000webhost.com");
-	define(MYSQL_DEF_USERNAME,"a8558739_itr");
+	define(MYSQL_DEF_HOSTADDR,"localhost");
+	define(MYSQL_DEF_USERNAME,"root");
 	define(MYSQL_DEF_PASSWORD,"A123456z");
-	define(MYSQL_DEF_DBNAME,"a8558739_itr");
+	define(MYSQL_DEF_DBNAME,"itracker_db");
 	
 	function gl_getacctab()
 	{
