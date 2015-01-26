@@ -52,7 +52,7 @@ window.console.log("Create the LAC itrmainlayout ... ");
 			window.console.log("LAC.LAYOUT.ItrMainLayout createmainview(parent:"+parent+") ... ");
 			
 			// builder wrapper container ...
-			collection["wrapper"] = $("<div id='wrapper' class='toggled'></div>").appendTo(parent);
+			collection["wrapper"] = $("<div id='wrapper'></div>").appendTo(parent);
 			
 			// build the sidebar ...
 			collection["sidebar"] = $(new EJS({url:"view/sidebar.ejs"}).render(

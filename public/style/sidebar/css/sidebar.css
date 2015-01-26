@@ -19,7 +19,7 @@
 }
 
 .navbar {
-	left: 250px;
+	left: 0px;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -27,7 +27,7 @@
 }
 
 .navbar.toggled {
-	left : 0px;
+	left : 250px;
 }
 
 #sidebar-wrapper {
@@ -109,6 +109,23 @@
 }
 
 @media(min-width:768px) {
+#wrapper {
+padding-right: 0;
+}
+
+#wrapper.toggled {
+padding-right: 250px;
+}
+
+#sidebar-wrapper {
+width: 0;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+width: 250px;
+}
+
+/*@media(min-width:768px) {
     #wrapper {
         padding-left: 250px;
     }
@@ -117,6 +134,14 @@
         padding-left: 0;
     }
 
+	.navbar {
+		left: 250px;
+	}
+
+	.navbar.toggled {
+		left : 0px;
+	}
+	
     #sidebar-wrapper {
         width: 250px;
     }
@@ -134,4 +159,4 @@
         position: relative;
         margin-right: 0;
     }
-}
+}*/
