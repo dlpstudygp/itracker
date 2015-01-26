@@ -1,0 +1,8 @@
+/*
+ *	The own defined css layout here to override the default bootstrap css template
+ *
+*/
+
+a:hover {
+	cursor: pointer; 
+}

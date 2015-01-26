@@ -17,9 +17,13 @@ window.console.log("Create the LAC itrmainlayout ... ");
 	L.LAYOUT.ItrMainLayout = function()
 	{
 		// constructor ... 
-		window.console.log("LAC.LAYOUT.ItrMainLayout __constuct() ... ");
+		window.console.log("LAC.LAYOUT.ItrMainLayout __construct() ... ");
 		
-		L.LAYOUT.MainLayout.call(this,"mainlayout"); 
+		L.LAYOUT.MainLayout.call(this,"mainlayout");
+		
+		// disable selection ... 
+		$("body").disableSelection();
+		
 		return this;
 	};
 	
@@ -30,21 +34,13 @@ window.console.log("Create the LAC itrmainlayout ... ");
 			// setup the navbar here ... 
 			window.console.log("LAC.LAYOUT.ItrMainLayout createnavbar(parent:"+parent+") ... ");
 			
-			var menu = new EJS({url:"view/menu.ejs"}).render(
-			{
-				uuid: 'menuaside',
-				items : 
-				[
-					{uuid : 'myprofile', title: 'MyProfile'},
-					{uuid : 'publicevt', title: 'PublicEvents'},
-					{uuid : 'myevt', title: 'MyEvents'},
-				]
-			});
-
 			collection["main"] = $(new EJS({url:"view/navbar.ejs"}).render(
 			{
-				menuuuid: 'menuaside',
-				menu: menu
+				items: 
+				[
+					{uuid: "signin", title: "SignIn"},
+					{uuid: "signup", title: "SignUp"}		
+				]
 			}));
 			
 			parent.append(collection["main"]);
@@ -55,16 +51,29 @@ window.console.log("Create the LAC itrmainlayout ... ");
 			// setup the mainview here ... 
 			window.console.log("LAC.LAYOUT.ItrMainLayout createmainview(parent:"+parent+") ... ");
 			
-			var car = new EJS({url:"view/carousel.ejs"}).render();
-			parent.append(car);
+			// builder wrapper container ...
+			collection["wrapper"] = $("<div id='wrapper' class='toggled'></div>").appendTo(parent);
 			
-			return this;
-		},
-		createfooter : function(collection,parent)
-		{
-			// setup the footer here ... 
-			window.console.log("LAC.LAYOUT.ItrMainLayout createfooter(parent:"+parent+") ... ");
+			// build the sidebar ...
+			collection["sidebar"] = $(new EJS({url:"view/sidebar.ejs"}).render(
+			{
+				brand: "iTracker",
+				items: 
+				[
+					{uuid: "myprofile", title: "MyProfile"},
+					{uuid: "myevt", title: "MyEvents"},
+					{uuid: "publicevt", title: "PublicEvents"}
+				]
+			})).appendTo(collection["wrapper"]);
 			
+			// build page ... 
+			var container = $("<div id='page-content-wrapper'><div class='container-fluid'></div></div>").appendTo(collection["wrapper"]);
+			collection["pagecollection"] = new $.PageCollection("pagecollection","row",null);
+			container.append(collection["pagecollection"].component);
+			
+			// add page here ... 
+		
+			parent.append(container);
 			return this;
 		},
 		createdialog : function(collection,parent)
@@ -72,7 +81,7 @@ window.console.log("Create the LAC itrmainlayout ... ");
 			// setup the dialog here ... 
 			window.console.log("LAC.LAYOUT.ItrMainLayout createdialog(parent:"+parent+") ... ");
 
-			/*var form = new EJS({url:"view/loginfrm.ejs"}).render();
+			var form = new EJS({url:"view/loginfrm.ejs"}).render();
 			collection["logindlg"] = $(new EJS({url:"view/dialog.ejs"}).render(
 			{
 				uuid:"dlglogin",
@@ -98,7 +107,7 @@ window.console.log("Create the LAC itrmainlayout ... ");
 					{uuid:"btncreateacc",type:"btn-primary",title:"SignUp"}
 				]
 			}));
-			parent.append(collection["createaccdlg"]);*/
+			parent.append(collection["createaccdlg"]);
 
 			return this;
 		},
@@ -108,8 +117,30 @@ window.console.log("Create the LAC itrmainlayout ... ");
 			window.console.log("LAC.LAYOUT.ItrMainLayout eventlistener(components:"+components+") ... ");
 			
 			var self = this;
+			var mainnavbar = components.navbar["main"];
+			var logindlg = components.dialog["logindlg"];
+			var createaccdlg = components.dialog["createaccdlg"];
+			var wrapper = components.mainview["wrapper"];
+			var sidebar = components.mainview["sidebar"];
 			
-			/*var logindlg = this.components.dialog["logindlg"];
+			// navbar event ...
+			mainnavbar.on("click touch","a",
+			function(evt)
+			{
+				var target = $(evt.target);
+				
+				if(target.hasClass("navbar-brand") || target.parent().hasClass("navbar-brand"))
+				{
+					wrapper.toggleClass('toggled');
+					mainnavbar.toggleClass('toggled');
+				}
+				else if(target.attr("id") == "signin")
+					logindlg.modal('show');
+				else if(target.attr("id") == "signup")
+					createaccdlg.modal('show');
+			});
+			
+			// login dlg event ...
 			logindlg.on("click touch","button",
 			function(evt)
 			{
@@ -122,7 +153,7 @@ window.console.log("Create the LAC itrmainlayout ... ");
 				}
 			});
 
-			var createaccdlg = this.components.dialog["createaccdlg"];
+			// create account dlg event ... 
 			createaccdlg.on("click touch","button",
 			function(evt)
 			{
@@ -135,7 +166,7 @@ window.console.log("Create the LAC itrmainlayout ... ");
 					var cf = createaccdlg.find("#inputconfirmation").val().trim();
 					self.app.createaccount(email,name,pw,cf);					
 				}	
-			});*/
+			});
 			
 			return this;
 		},		
@@ -157,7 +188,7 @@ window.console.log("Create the LAC itrmainlayout ... ");
 		{
 			// error handler ... 
 			window.console.log("LAC.LAYOUT.ItrMainLayout error(errorobj:"+errorobj+") ... ");
-			$("body").append(errorobj);
+			//$("body").append(errorobj);
 			
 			return this;			
 		},
